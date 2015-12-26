@@ -1,59 +1,62 @@
 package pong.gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Point;
+import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.Dimension;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import javax.swing.ImageIcon;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.swing.JPanel;
 
-public class Ball extends PongItem {
+public class Ball extends PongItem
+{
 
-    /**
-	 * Position of ball
-	 */
-	private Point ball_position = new Point(0, 0);
-	/**
-	 * Speed of ball, in pixels per timestep
-	 */
-	private Point ball_speed = new Point(BALL_SPEED, BALL_SPEED);
-   
-	public Ball(){
-	
-		super();
-	
+	private Point ball_speed;
+
+
+	public Ball(Point ball_speed)
+	{
+
+		super(Toolkit.getDefaultToolkit().createImage(
+				ClassLoader.getSystemResource("image/ball.png")));
+		this.setPosition(100, 100); //pour pas qu'il commence bloqué au coin
+		this.ball_speed = ball_speed;
 	}
 
-	public void animate() {
-		/* Update ball position */
-		ball_position.translate(ball_speed.x, ball_speed.y);
-		if (ball_position.x < 0)
+	
+
+	public void updatePosition(int dimension_fenetre_X, int dimension_fenetre_Y)
+	{
+		Point tmp = this.getPosition();
+		tmp.translate(ball_speed.x, ball_speed.y);
+
+		if (tmp.x < 0)
 		{
-			ball_position.x = 0;
+			//item_position.x = 0;
+			tmp.x = 0; //update tmp point for other ifs
+			this.setX(0); //update actual position
 			ball_speed.x = -ball_speed.x;
 		}
-		if (ball_position.y < 0)
+		if (tmp.y < 0)
 		{
-			ball_position.y = 0;
+			tmp.y = 0;
+			this.setY(0);
 			ball_speed.y = -ball_speed.y;
 		}
-		if (ball_position.x > SIZE_PONG_X - ball_width)
+		int tmp_calc = dimension_fenetre_X - this.getWidth();
+		if (tmp.x > tmp_calc)
 		{
-			ball_position.x = SIZE_PONG_X - ball_width;
+			tmp.x = tmp_calc;
+			this.setX(tmp_calc);
 			ball_speed.x = -ball_speed.x;
 		}
-		if (ball_position.y > SIZE_PONG_Y - ball_height)
+		tmp_calc = dimension_fenetre_Y - this.getHeight();
+		if (tmp.y > tmp_calc)
 		{
-			ball_position.y = SIZE_PONG_Y - ball_height;
+			tmp.y = tmp_calc;
+			this.setY(tmp_calc);
 			ball_speed.y = -ball_speed.y;
 		}
 	}
-
 }
+
+
+
+	

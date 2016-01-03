@@ -22,7 +22,7 @@ public class Ball extends PongItem
 
 	
 
-	public void updatePosition(int dimension_fenetre_X, int dimension_fenetre_Y)
+	public void updatePosition(int dimension_fenetre_X, int dimension_fenetre_Y, Racket racket)
 	{
 		Point tmp = this.getPosition();
 		tmp.translate(ball_speed.x, ball_speed.y);
@@ -47,6 +47,14 @@ public class Ball extends PongItem
 			this.setX(tmp_calc);
 			ball_speed.x = -ball_speed.x;
 		}
+
+		if((tmp.x < racket.getWidth()) & ((racket.getY() - racket.getHeight()/2) > tmp.y ) & (tmp.y > (racket.getY() + racket.getHeight()/2)))
+		{
+			tmp.x = tmp_calc;
+			this.setX(tmp_calc);
+			ball_speed.x = -ball_speed.x;
+		}
+
 		tmp_calc = dimension_fenetre_Y - this.getHeight();
 		if (tmp.y > tmp_calc)
 		{
@@ -54,6 +62,8 @@ public class Ball extends PongItem
 			this.setY(tmp_calc);
 			ball_speed.y = -ball_speed.y;
 		}
+
+
 	}
 }
 

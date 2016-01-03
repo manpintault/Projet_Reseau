@@ -155,7 +155,8 @@ public class Pong extends JPanel  {
 			ball_speed.y = -ball_speed.y;
 		}*/
 
-		this.ball.updatePosition(SIZE_PONG_X, SIZE_PONG_Y);
+		this.racket.updatePosition(SIZE_PONG_Y);
+		this.ball.updatePosition(SIZE_PONG_X, SIZE_PONG_Y, this.racket);
 
 		/* Update racket position */
 		/*racket_position.y += racket_speed;
@@ -163,7 +164,7 @@ public class Pong extends JPanel  {
 			racket_position.y = 0;
 		if (racket_position.y > SIZE_PONG_Y - racket_height/2)
 			racket_position.y = SIZE_PONG_Y - racket_height/2;*/
-		this.racket.updatePosition(SIZE_PONG_Y);
+		
 
 		/* And update output */
 		updateScreen();
